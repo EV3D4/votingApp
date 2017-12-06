@@ -17,7 +17,6 @@ var db = mongoose.connection;
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var polls = require('./routes/polls');
-var pollResults = require('./routes/pollResults')
 
 // Init App
 var app = express();
@@ -76,7 +75,6 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use('/poll/:id', pollResults);
 app.use('/polls', polls);
 app.use('/users', users);
 app.use(['/index','/'], routes);
