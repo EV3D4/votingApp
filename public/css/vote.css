@@ -8,6 +8,7 @@
 
 }
 
+
 .ballot {
   height: 600px;
   width: inherit;
@@ -95,4 +96,16 @@ label {
   font-size: 1.5em;
   line-height: 1;
   vertical-align: -0.125em;
+}
+
+.expandable{
+  float: right;
+  margin-top: 5%;
+  margin-right: -10%;
+  font-size: 4vw;
+}
+
+#myChart{
+  height: 75vh;
+  padding: 10%;
 }

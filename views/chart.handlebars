@@ -6,10 +6,21 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js">
 </script>
 
-<h1 class="display-3">{{userPolls.option1.vote}}</h1>
+<div class="row">
+  <div class="col-lg-6">
+    <h1 class="display-3 chartTitle">{{userPolls.question}}</h1>
+  </div>
+  <div class="col-lg-6">
+<a href="http://twitter.com/home?status=Vote: {{userPolls.question}} http://votingapp-kalpitp.herokuapp.com/polls/{{userPolls._id}}" >
+  <i class="fa fa-twitter fa-2x expandable" aria-hidden="true"></i></a>
+</div>
+</div>
+</div>
 
 
-<canvas id="myChart" width="400" height="350"></canvas>
+</div>
+
+<canvas id="myChart" width="1" height="1"></canvas>
 
 <script>
 
@@ -20,7 +31,7 @@ var ctx = document.getElementById("myChart");
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["{{{userPolls.option1.opt}}}", "{{{userPolls.option2.opt}}}"],
+        labels: [  {{#each userPollLabels}} "{{{this}}}", {{/each}}],
         datasets: [{
             label: '# of Votes',
             data: [{{{userPollTallies}}}],

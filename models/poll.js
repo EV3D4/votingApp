@@ -23,7 +23,7 @@ var PollSchema = mongoose.Schema({
   timestamp: {
     create: Number,
     update: Number,
-  },
+  }
 
 });
 

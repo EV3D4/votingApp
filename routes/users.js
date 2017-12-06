@@ -146,10 +146,11 @@ console.log(selectpicker)
     Poll.find({}, function(err, polls) {
       if (err) throw err;
       var tempx=[polls[req.body.pollNumber].option1.vote,polls[req.body.pollNumber].option2.vote]
-
+      var tempq=[polls[req.body.pollNumber].option1.opt,polls[req.body.pollNumber].option2.opt]
       res.render('chart', {
         userPolls: polls[req.body.pollNumber],
-        userPollTallies: tempx
+        userPollTallies: tempx,
+        userPollLabels: tempq
       });
 
     });
