@@ -77,6 +77,7 @@ app.use(function (req, res, next) {
 
 app.use('/polls', polls);
 app.use('/users', users);
+
 app.use(['/index','/'], routes);
 
 

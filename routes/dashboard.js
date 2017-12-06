@@ -12,8 +12,7 @@ router.get('/', ensureAuthenticated, function(req, res){
 	Poll.find({username: req.user.username}, function(err, polls) {
 	  if (err) throw err;
 
-	  // object of all the users
-	  console.log(polls);
+	 
 
 
 

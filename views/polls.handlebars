@@ -10,9 +10,9 @@
           <tr>
             <th>#</th>
             <th>Name</th>
-            <th>Created</th>
-            <th>Updated</th>
-            <th>Tallies</th>
+            <th>Option 1</th>
+            <th>Option 2</th>
+            <th>Vote</th>
           </tr>
         </thead>
 
@@ -20,10 +20,10 @@
           {{#each userPolls}}
             <tr>
               <td>{{inc @index}}</td>
-              <td><a href='/users/vote/{{@index}}' method="post" action="/users/register">{{trim this.question}}</a></td>
+              <td><a href='/users/view/{{this._id}}'>{{trim this.question}}</a></td>
               <td>{{this.option1.opt}}</td>
               <td>{{this.option2.opt}}</td>
-              <td>sit</td>
+              <td><a href='/users/vote/{{this._id}}'> <i class="fa fa-check-square" aria-hidden="true"></i></a></td>
             </tr>
           {{/each}}
         </tbody>

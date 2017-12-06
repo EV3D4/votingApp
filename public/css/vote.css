@@ -10,7 +10,7 @@
 
 
 .ballot {
-  height: 45vh;
+  height: 40vh;
   width: inherit;
   margin:auto;
   padding-top: 5%;
@@ -24,8 +24,9 @@
 
 .containerSelect {
   margin: auto;
-  padding-top: 5%;
-  padding-left: 5%;
+
+  padding-top: 1vh;
+  padding-left: 4vw;
   font-family: Avenir Next, Helvetica Neue, sans-serif;
 }
 

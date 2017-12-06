@@ -23,17 +23,19 @@ router.use('/create', create);
 
 // Vote
 router.get('/vote/:id', function(req, res) {
+  if (req.params.id !== "jumbotron.css") {
+    Poll.find({
+      '_id': req.params.id
+    }, function(err, polls) {
+      if (err) throw err;
 
-  Poll.find({}, function(err, polls) {
-    if (err) throw err;
-
-    res.render('ballot', {
-      userPolls: polls[req.params.id],
-			pollNumber: req.params.id
+      res.render('ballot', {
+        userPolls: polls[0],
+        pollNumber: req.params.id
+      });
     });
-  });
+  } else(res.end())
 });
-
 
 // Login
 router.get(['/login', '/'], ensureAuthenticated, function(req, res) {
@@ -103,52 +105,78 @@ router.post('/register', function(req, res) {
   }
 });
 
+router.get('/edit/:id',function(req, res) {
+  if (req.params.id !== "jumbotron.css") {
+  Poll.find({
+    '_id': req.params.id
+  }, function(err, polls) {
+    if (err) throw err;
+
+    res.render('edit', {
+      userPolls: polls[0],
+      question: polls[0].question,
+      option1: polls[0].option1.opt,
+      option2: polls[0].option2.opt,
+      pollid: polls[0]._id
+    });
+  });
+}else {res.end()}});
+
 router.post('/tally', function(req, res) {
 
   var selectpicker = req.body.selectpicker;
-console.log(selectpicker)
-	req.checkBody('selectpicker', 'invalid selection').exists();
+  console.log(selectpicker)
+  req.checkBody('selectpicker', 'invalid selection').exists();
 
-	var errors = req.validationErrors();
+  var errors = req.validationErrors();
 
-	if (errors) {
+  if (errors) {
 
-		Poll.find({}, function(err, polls) {
-			if (err) throw err;
+    Poll.find({
+      '_id': req.body.pollID
+    }, function(err, polls) {
+      if (err) throw err;
 
 
 
-			res.render('ballot', {
+      res.render('ballot', {
 
-				errors: errors,
-				userPolls: polls[req.body.pollNumber],
-				pollNumber: req.body.pollNumber
-			});
-		});
-
-	} else
-	{
-
-    let obj = {
-      [selectpicker] : 1
-    }
-
-    Poll.findByIdAndUpdate(
-        req.body.pollID,
-
-         {$inc: obj },
-        function(err, document) {
-        console.log(err);
+        errors: errors,
+        userPolls: polls[0],
+        pollNumber: req.body.pollNumber
+      });
     });
 
-		req.flash('success_msg', 'You voted!');
+  }
+  else {
 
-    Poll.find({}, function(err, polls) {
+    let obj = {
+      [selectpicker]: 1
+    }
+
+    let id = req.body.pollID;
+
+    Poll.findByIdAndUpdate(
+      id,
+
+      {
+        $inc: obj
+      },
+
+      function(err, document) {
+        console.log(err);
+      });
+
+    req.flash('success_msg', 'You voted!');
+
+    Poll.find({
+      '_id': req.body.pollID
+    }, function(err, polls) {
       if (err) throw err;
-      var tempx=[polls[req.body.pollNumber].option1.vote,polls[req.body.pollNumber].option2.vote]
-      var tempq=[polls[req.body.pollNumber].option1.opt,polls[req.body.pollNumber].option2.opt]
+      var tempx = [polls[0].option1.vote, polls[0].option2.vote]
+      var tempq = [polls[0].option1.opt, polls[0].option2.opt]
       res.render('chart', {
-        userPolls: polls[req.body.pollNumber],
+        userPolls: polls[0],
         userPollTallies: tempx,
         userPollLabels: tempq
       });
@@ -157,6 +185,51 @@ console.log(selectpicker)
   }
 
 });
+
+
+
+router.get('/view/:id', function(req, res) {
+
+  if (req.params.id !== "jumbotron.css") {
+
+    Poll.find({
+      '_id': req.params.id
+    }, function(err, polls) {
+      if (err) throw err;
+      var tempx = [polls[0].option1.vote, polls[0].option2.vote]
+      var tempq = [polls[0].option1.opt, polls[0].option2.opt]
+      res.render('chart', {
+        userPolls: polls[0],
+        userPollTallies: tempx,
+        userPollLabels: tempq
+      });
+
+    });
+  }
+  else {
+    res.end()
+  }
+
+
+
+
+});
+
+
+
+router.use('/delete/:id',function(req, res) {
+  if (req.params.id !== "jumbotron.css") {
+    Poll.findByIdAndRemove(req.params.id, function(err) {
+      if (err) throw err;
+
+      req.flash('success_msg', 'Poll Deleted!');
+
+      res.redirect('/users/dashboard');
+
+    });
+
+
+}else {res.end()}});
 
 router.post('/save', function(req, res) {
 
@@ -197,6 +270,80 @@ router.post('/save', function(req, res) {
     });
 
     req.flash('success_msg', 'Poll Posted!');
+
+    res.redirect('/users/dashboard');
+  }
+});
+
+router.post('/update', function(req, res) {
+
+
+  var question = req.body.question;
+  var option1 = req.body.option1;
+  var option2 = req.body.option2;
+  var pollid = req.body.pollid;
+
+  // Validation
+  req.checkBody('question', 'question is required').notEmpty();
+  req.checkBody('option1', 'option1 is required').notEmpty();
+  req.checkBody('option2', 'option2 is required').notEmpty();
+
+
+  var errors = req.validationErrors();
+
+  if (errors) {
+    res.render('edit', {
+      errors: errors,
+      question: question,
+      option1: option1,
+      option2: option2,
+      pollid: pollid
+    });
+  } else {
+
+
+    var newPoll = ({
+      username: res.locals.user,
+      question: question,
+      option1: {
+        opt: option1,
+        vote: 0
+      },
+      option2: {
+        opt: option2,
+        vote: 0
+      }
+    });
+
+
+
+    Poll.findById(pollid, function(err, poll) {
+      if (err) throw err;
+
+      // change the users location
+      poll.question = question;
+      poll.option1.opt=option1;
+      poll.option2.opt=option2;
+
+      poll.option1.vote=0;
+      poll.option2.vote=0;
+
+      // save the user
+      poll.save(function(err) {
+        if (err) throw err;
+
+
+      });
+
+    });
+
+
+
+
+
+
+
+    req.flash('success_msg', 'Poll Updated!');
 
     res.redirect('/users/dashboard');
   }
