@@ -1,0 +1,98 @@
+.jumbotron {
+  display: none;
+}
+
+.alert{
+  position: fixed;
+  width: inherit;
+
+}
+
+.ballot {
+  height: 600px;
+  width: inherit;
+  margin:auto;
+  padding-top: 5%;
+  position: relative;
+
+}
+
+.accessible {
+  margin-bottom: 3%;
+}
+
+.containerSelect {
+  margin: auto;
+  padding-top: 5%;
+  padding-left: 5%;
+  font-family: Avenir Next, Helvetica Neue, sans-serif;
+}
+
+.btn {
+  position: absolute;
+  bottom: 7%;
+  right: 7%;
+  height: 55px;
+  width: 115px;
+  font-size: 25px;
+  font-family: Avenir Next, Helvetica Neue, sans-serif;
+
+}
+
+@import url(https://fonts.googleapis.com/css?family=Cabin:700);
+/* HTML5 Boilerplate accessible hidden styles */
+
+[type="radio"] {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/* One radio button per line */
+
+label {
+  display: block;
+  cursor: pointer;
+  line-height: 2.5;
+  font-size: 2.5em;
+}
+
+[type="radio"]+span {
+  display: block;
+}
+
+/* the basic, unchecked style */
+
+[type="radio"]+span:before {
+  content: '';
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.25em;
+  border-radius: 1em;
+  border: 0.025em solid #A7D4FD;
+  box-shadow: 0 0 0 0.15em #A7D4FD;
+  margin-right: .75em;
+  transition: 0.5s ease all;
+}
+
+/* the checked style using the :checked pseudo class */
+
+[type="radio"]:checked+span:before {
+  background: #5286ec;
+  box-shadow: 0 0 0 0.25em #A7D4FD;
+}
+
+/* never forget focus styling */
+
+[type="radio"]:focus+span:after {
+  content: '\0020\2190';
+  font-size: 1.5em;
+  line-height: 1;
+  vertical-align: -0.125em;
+}

@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="/css/polls.css" />
+
+<h1 class="display-3">Public Polls</h1>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Tallies</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{#each userPolls}}
+            <tr>
+              <td>{{inc @index}}</td>
+              <td><a href='/users/vote/{{@index}}' method="post" action="/users/register">{{trim this.question}}</a></td>
+              <td>{{this.option1.opt}}</td>
+              <td>{{this.option2.opt}}</td>
+              <td>sit</td>
+            </tr>
+          {{/each}}
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>

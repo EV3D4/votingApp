@@ -1,0 +1,56 @@
+body {
+  padding-top: 3.5rem;
+}
+
+.add-poll {
+  border-radius: 50%;
+}
+
+.alert-message {
+  height: 3.25em;
+  padding-top: .75em;
+  padding-left: 1em;
+  background-color: #f7cac9;
+}
+
+.main_container {
+  margin-top: 20px;
+  padding-left: 15px;
+}
+
+.indexIcons {
+  margin-top: 35px;
+  margin-bottom: 40px;
+  margin-left: 10px;
+}
+
+.indexIcons1 {
+  margin-top: 45px;
+  margin-bottom: 40px;
+  margin-left: 10px;
+}
+
+
+.createButton {
+  display: block;
+  border-radius: 100%;
+  padding: 12px;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+}
+
+footer {
+  margin-top: 2em;
+}
+
+h1{
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+
+.indexContainer{
+  padding-top: 5%;
+  margin-left: 10%;
+}

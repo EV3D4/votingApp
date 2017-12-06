@@ -1,0 +1,18 @@
+.polls{
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-bottom: 2%;
+}
+
+.mainjumbotron{
+  display: none;
+}
+
+.jumbotron{
+  display: none;
+}
+
+.containerK{
+  margin-top: 2.1em;
+  margin-bottom: 2.1em;
+}

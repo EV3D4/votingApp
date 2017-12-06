@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="/css/vote.css" />
+
+
+
+
+<h1 class="display-3">{{userPolls.question}}</h1>
+<hr>
+{{#if errors}}
+      {{#each errors}}
+        <div class="alert alert-danger">{{msg}}</div>
+      {{/each}}
+{{/if}}
+
+<div class="ballot">
+
+  <form method="POST" action="/users/tally" value="13">
+
+    <div class="containerSelect">
+
+        <label class="accessible">
+            <input type="radio" value="option1.vote" name="selectpicker" id="accessible"> <span>{{userPolls.option1.opt}}</span>
+          </label>
+
+        <label class="accessible">
+            <input type="radio" value="option2.vote" name="selectpicker" id="pretty"> <span>{{userPolls.option2.opt}}</span>
+
+          </label>
+
+        <input type="hidden" name="pollNumber" value= {{pollNumber}} />
+        <input type="hidden" name="pollID" value= {{userPolls._id}} />
+
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</div>
+
+
+</form>
