@@ -21,13 +21,13 @@ body {
 .indexIcons {
   margin-top: 35px;
   margin-bottom: 40px;
-  margin-left: 10px;
+
 }
 
 .indexIcons1 {
   margin-top: 45px;
   margin-bottom: 40px;
-  margin-left: 10px;
+
 }
 
 
@@ -52,5 +52,7 @@ h1{
 
 .indexContainer{
   padding-top: 5%;
-  margin-left: 10%;
+padding-left: 5%;
+  width: inherit;
+
 }

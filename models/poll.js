@@ -20,14 +20,27 @@ var PollSchema = mongoose.Schema({
     opt: String,
 		vote: Number
   },
-  timestamp: {
-    create: Number,
-    update: Number,
-  }
+  option3: {
+    opt: String,
+    vote: Number
+  },
+  option4: {
+    opt: String,
+    vote: Number
+  },
+  option5: {
+      opt: String,
+      vote: Number
+    }
+})
 
-});
+
+
 
 var Poll = module.exports = mongoose.model('Poll', PollSchema);
+
+
+
 
 module.exports.createPoll = function(newPoll, callback){
 

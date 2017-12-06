@@ -31,7 +31,8 @@
 }
 
 .btn {
-  position: absolute;
+  position: relative;
+  float: right;
   bottom: 7%;
   right: 7%;
   height: 55px;

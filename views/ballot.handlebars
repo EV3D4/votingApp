@@ -25,6 +25,27 @@
 
           </label>
 
+          {{#if userPolls.option3.opt}}
+          <label class="accessible">
+              <input type="radio" value="option3.vote" name="selectpicker" id="pretty"> <span>{{userPolls.option3.opt}}</span>
+
+            </label>
+            {{/if}}
+
+            {{#if userPolls.option4.opt}}
+            <label class="accessible">
+                <input type="radio" value="option4.vote" name="selectpicker" id="pretty"> <span>{{userPolls.option4.opt}}</span>
+
+              </label>
+              {{/if}}
+
+              {{#if userPolls.option5.opt}}
+              <label class="accessible">
+                  <input type="radio" value="option5.vote" name="selectpicker" id="pretty"> <span>{{userPolls.option5.opt}}</span>
+
+                </label>
+                {{/if}}
+
         <input type="hidden" name="pollNumber" value= {{pollNumber}} />
         <input type="hidden" name="pollID" value= {{userPolls._id}} />
 

@@ -2,11 +2,26 @@
   display: none;
 }
 
+.container1{
+  margin-top: 2%;
+  position: relative;
+}
+.delete{
+  position:absolute;
+  left: 100%;
+  top: -50%;
+  right: -55%;
 
 
+
+}
+.container2{
+  margin-top: 2%;
+position: relative;
+}
 
  .btn{
    float: right;
    margin-top: 4%;
-   
+   margin-left: 2%;
    }

@@ -105,6 +105,8 @@ router.post('/register', function(req, res) {
   }
 });
 
+
+// Edit Poll
 router.get('/edit/:id',function(req, res) {
   if (req.params.id !== "jumbotron.css") {
   Poll.find({
@@ -113,10 +115,12 @@ router.get('/edit/:id',function(req, res) {
     if (err) throw err;
 
     res.render('edit', {
-      userPolls: polls[0],
       question: polls[0].question,
       option1: polls[0].option1.opt,
       option2: polls[0].option2.opt,
+      option3: polls[0].option3.opt,
+      option4: polls[0].option4.opt,
+      option5: polls[0].option5.opt,
       pollid: polls[0]._id
     });
   });
@@ -173,12 +177,32 @@ router.post('/tally', function(req, res) {
       '_id': req.body.pollID
     }, function(err, polls) {
       if (err) throw err;
-      var tempx = [polls[0].option1.vote, polls[0].option2.vote]
-      var tempq = [polls[0].option1.opt, polls[0].option2.opt]
+
+
+
+      var tempx = [polls[0].option1.vote, polls[0].option2.vote, polls[0].option3.vote, polls[0].option4.vote, polls[0].option5.vote]
+      var tempq = [polls[0].option1.opt, polls[0].option2.opt,polls[0].option3.opt, polls[0].option4.opt,polls[0].option5.opt]
+      var temprx =[]
+      var temprq = []
+
+
+      for(x=0;x<5;x++)
+      {
+
+        if (tempq[x])
+
+        {
+
+          temprx.push(tempx[x])
+          temprq.push(tempq[x])
+        }
+
+      }
+
       res.render('chart', {
         userPolls: polls[0],
-        userPollTallies: tempx,
-        userPollLabels: tempq
+        userPollTallies: temprx,
+        userPollLabels: temprq
       });
 
     });
@@ -196,12 +220,33 @@ router.get('/view/:id', function(req, res) {
       '_id': req.params.id
     }, function(err, polls) {
       if (err) throw err;
-      var tempx = [polls[0].option1.vote, polls[0].option2.vote]
-      var tempq = [polls[0].option1.opt, polls[0].option2.opt]
+
+
+      var tempx = [polls[0].option1.vote, polls[0].option2.vote, polls[0].option3.vote, polls[0].option4.vote, polls[0].option5.vote]
+      var tempq = [polls[0].option1.opt, polls[0].option2.opt,polls[0].option3.opt, polls[0].option4.opt,polls[0].option5.opt]
+      var temprx =[]
+      var temprq = []
+
+
+      for(x=0;x<5;x++)
+      {
+
+        if (tempq[x])
+
+        {
+
+          temprx.push(tempx[x])
+          temprq.push(tempq[x])
+        }
+
+      }
+
+
+
       res.render('chart', {
         userPolls: polls[0],
-        userPollTallies: tempx,
-        userPollLabels: tempq
+        userPollTallies: temprx,
+        userPollLabels: temprq
       });
 
     });
@@ -236,12 +281,20 @@ router.post('/save', function(req, res) {
   var question = req.body.question;
   var option1 = req.body.option1;
   var option2 = req.body.option2;
+  var option3 = req.body.option3;
+  var option4 = req.body.option4;
+  var option5 = req.body.option5;
+
 
 
   // Validation
   req.checkBody('question', 'question is required').notEmpty();
   req.checkBody('option1', 'option1 is required').notEmpty();
   req.checkBody('option2', 'option2 is required').notEmpty();
+
+
+
+
 
 
   var errors = req.validationErrors();
@@ -261,13 +314,32 @@ router.post('/save', function(req, res) {
       option2: {
         opt: option2,
         vote: 0
-      }
+      },
+      option3: {
+        opt: option3,
+        vote: 0
+      },
+      option4: {
+          opt: option4,
+          vote: 0
+        },
+      option5: {
+          opt: option5,
+          vote: 0
+        }
     });
+
+
 
     Poll.createPoll(newPoll, function(err, user) {
       if (err) throw err;
 
     });
+
+
+
+
+
 
     req.flash('success_msg', 'Poll Posted!');
 
@@ -281,7 +353,13 @@ router.post('/update', function(req, res) {
   var question = req.body.question;
   var option1 = req.body.option1;
   var option2 = req.body.option2;
+  var option3 = req.body.option3;
+  var option4 = req.body.option4;
+  var option5 = req.body.option5;
   var pollid = req.body.pollid;
+
+
+  console.log(option3)
 
   // Validation
   req.checkBody('question', 'question is required').notEmpty();
@@ -294,9 +372,12 @@ router.post('/update', function(req, res) {
   if (errors) {
     res.render('edit', {
       errors: errors,
-      question: question,
+      question:  question,
       option1: option1,
       option2: option2,
+      option3: option3,
+      option4: option4,
+      option5: option5,
       pollid: pollid
     });
   } else {
@@ -312,21 +393,38 @@ router.post('/update', function(req, res) {
       option2: {
         opt: option2,
         vote: 0
-      }
+      },
+      option3: {
+        opt: option3,
+        vote: 0
+      },
+      option4: {
+        opt: option4,
+        vote: 0
+      },
+      option5: {
+        opt: option5,
+        vote: 0
+      },
     });
-
 
 
     Poll.findById(pollid, function(err, poll) {
       if (err) throw err;
 
-      // change the users location
       poll.question = question;
       poll.option1.opt=option1;
       poll.option2.opt=option2;
+      poll.option3.opt=option3;
+      poll.option4.opt=option4;
+      poll.option5.opt=option5;
 
       poll.option1.vote=0;
       poll.option2.vote=0;
+      poll.option3.vote=0;
+      poll.option4.vote=0;
+      poll.option5.vote=0;
+
 
       // save the user
       poll.save(function(err) {

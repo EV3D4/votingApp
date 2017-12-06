@@ -1,6 +1,6 @@
 <link href="/css/fields.css" rel="stylesheet">
 
-<h1 class="display-3">create poll</h1>
+<h1 class="display-3">edit poll</h1>
 
 {{#if errors}}
       {{#each errors}}
@@ -17,21 +17,78 @@
   <div class="form-group container1">
     <input type="text" class="form-control" value="{{option1}}" name="option1">
   </div>
-  <div class="form-group container1">
+  <div class="form-group container2">
     <input type="text" class="form-control" value="{{option2}}"  name="option2">
   </div>
-  <div class="form-group container1">
+
+  {{#if option3}}
+  <div class="form-group container2"><div class="delete"><a href="#"><i class="fa fa-minus-square" aria-hidden="true"></i></a></div>
+    <input type="text" class="form-control" value="{{option3}}"  name="option3">
+  </div>
+  {{/if}}
+
+  {{#if option4}}
+  <div class="form-group container2">
+    <input type="text" class="form-control" value="{{option4}}"  name="option4">
+  </div>
+  {{/if}}
+
+  {{#if option5}}
+  <div class="form-group container2">
+    <input type="text" class="form-control" value="{{option5}}"  name="option5">
+  </div>
+  {{/if}}
+
+  <div class="form-group container3">
     <input type="hidden" class="form-control" value="{{pollid}}"  name="pollid">
   </div>
-  <button type="submit" class="btn btn-default">Update</button>
+
+
+  <button type="submit" class="btn btn-default">Update</button><button class="add_form_field btn btn-default ">Add Field<span style="font-size:16px; font-weight:bold;"></span></button>
+
+
+
 </form>
 
 
-
 {{#if user}}
-    <p><a class="btn btn-primary btn-lg createButton" href="/users/delete/{{userPolls._id}}" role="button"> <i class="fa fa-trash-o" aria-hidden="true" style="font-size:155%"></i></a></p>
+    <p><a class="btn btn-primary btn-lg createButton" href="/users/delete/{{pollid}}" role="button"> <i class="fa fa-trash-o" aria-hidden="true" style="font-size:155%"></i></a></p>
 {{/if}}
 
 
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-<script src="/js/fields.js"></script>
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    var max_fields      = 5;
+    var wrapper         = $(".container2");
+    var add_button      = $(".add_form_field");
+    var x = 2;
+
+    {{#if option3}}
+    x=3;
+    {{/if}}
+    {{#if option4}}
+    x=4;
+    {{/if}}
+    {{#if option5}}
+    x=5;
+    {{/if}}
+    $(add_button).click(function(e){
+        e.preventDefault();
+        if(x < max_fields){
+            x++;
+            $(wrapper).append('<div class="form-group container2"><div class="delete"><a href="#"><i class="fa fa-minus-square" aria-hidden="true"></i></a></div><input type="text" class="form-control" placeholder="Option" name="option'+x+'"></div>'); //add input box
+        }
+
+    });
+
+    $(wrapper).on("click",".delete", function(e){
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+});
+</script>

@@ -10,6 +10,7 @@
           <tr>
             <th>#</th>
             <th>Name</th>
+            <th>Author</th>
             <th>Option 1</th>
             <th>Option 2</th>
             <th>Vote</th>
@@ -21,6 +22,7 @@
             <tr>
               <td>{{inc @index}}</td>
               <td><a href='/users/view/{{this._id}}'>{{trim this.question}}</a></td>
+              <td>{{this.username}}</td>
               <td>{{this.option1.opt}}</td>
               <td>{{this.option2.opt}}</td>
               <td><a href='/users/vote/{{this._id}}'> <i class="fa fa-check-square" aria-hidden="true"></i></a></td>

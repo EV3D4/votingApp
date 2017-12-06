@@ -14,6 +14,7 @@
             <th>Option 1</th>
             <th>Option 2</th>
             <th>Edit</th>
+            <th>Delete</th>
           </tr>
         </thead>
 
@@ -24,9 +25,9 @@
               <td><a href='/users/view/{{this._id}}'>{{trim this.question}}</a></td>
               <td>{{this.option1.opt}}</td>
               <td>{{this.option2.opt}}</td>
-              <td><a href='/users/edit/{{this._id}}'><i class="fa fa-pencil-square" aria-hidden="true"></i>
-</i>
-</a></td>
+              <td><a href='/users/edit/{{this._id}}'><i class="fa fa-pencil-square" aria-hidden="true"></i></i></a></td>
+              <td><a href='/users/delete/{{this._id}}'> <i class="fa fa-trash" aria-hidden="true"></a></td>
+
             </tr>
           {{/each}}
         </tbody>
